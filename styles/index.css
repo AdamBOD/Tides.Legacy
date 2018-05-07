@@ -1,0 +1,117 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    background-color: cadetblue;
+}
+
+.container.main {
+    height: calc(100% - 350px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data {
+    width: 500px;
+    height: 500px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: azure;
+    text-align: center;
+    border-radius: 50%;
+    border: 5px solid #FFFFFF;
+    background: linear-gradient(cadetblue 50%, #5f9ecf 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data .container-fluid .row {
+    margin-bottom: 25px;
+}
+
+.data .container-fluid .row .container-fluid .row {
+    margin-bottom: 0px;
+}
+
+.data .container-fluid .row:last-child {
+    margin-bottom: 0px;
+}
+
+.row .location {
+    font-size: 20px;
+}
+
+.container-fluid .dateTime, .container-fluid .tides{
+    font-size: 25px;
+}
+
+.row .heading {
+    font-size: 18px;
+}
+
+footer {
+    width: 100%;
+    height: 350px;
+    background-image: url('../assets/images/Sea.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 415px) {
+    .container.main {
+        height: calc(100% - 175px);
+    }
+
+    .data {
+        width: 325px;
+        height: 325px;
+    }
+
+    footer {
+        height: 175px;
+    }
+
+    .row .location {
+        font-size: 20px;
+    }
+    
+    .container-fluid .dateTime, .container-fluid .tides{
+        font-size: 25px;
+    }
+    
+    .row .heading {
+        font-size: 18px;
+    }
+}
+
+@media (max-height: 400px) {
+    .container.main {
+        height: calc(100% - 125px);
+    }
+
+    .data {
+        width: 200px;
+        height: 200px;
+    }
+
+    footer {
+        height: 125px;
+    }
+
+    .row .location {
+        font-size: 10px;
+    }
+    
+    .container-fluid .dateTime, .container-fluid .tides{
+        font-size: 12.5px;
+    }
+    
+    .row .heading {
+        font-size: 9px;
+    }
+}
