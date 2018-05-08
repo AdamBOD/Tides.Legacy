@@ -62,6 +62,10 @@ footer {
     background-repeat: no-repeat;
 }
 
+.loader {
+    width: 55px;
+}
+
 @media (max-width: 415px) {
     .container.main {
         height: calc(100% - 175px);
