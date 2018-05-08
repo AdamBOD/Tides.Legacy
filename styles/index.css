@@ -24,7 +24,7 @@ body {
     text-align: center;
     border-radius: 50%;
     border: 5px solid #FFFFFF;
-    background: linear-gradient(cadetblue 50%, #5f9ecf 50%);
+    /* background: linear-gradient(cadetblue 50%, #5f9ecf 50%); */
     display: flex;
     align-items: center;
     justify-content: center;
