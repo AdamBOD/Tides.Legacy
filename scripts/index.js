@@ -51,13 +51,14 @@ function calculateHeight (currentTime, nextLowTide, nextHighTide) {
         console.log ("Low tide is less");
         currentTideTime = Math.abs(currentTime - lowTideTime);
         percentage = (currentTideTime / 22200000) * 100;
-        $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${100 - percentage}%)`);
+        //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${100 - percentage}%), cadetblue ${100 - percentage}%)`);
     }
     else if (nextLowTide > currentTime && currentTime > nextHighTide) {
         console.log ("High tides");
         currentTideTime = Math.abs(currentTime - highTideTime);
         percentage = (currentTideTime / 22200000) * 100;
         console.log (percentage)
-        $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
+        // $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
     }
+    $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
 }
