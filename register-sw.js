@@ -1,7 +1,7 @@
 console.log ("Registering SW");
 if ('serviceWorker' in navigator) {
     console.log ("Service Worker is supported");
-	navigator.serviceWorker.register('scripts/sw.js')
+	navigator.serviceWorker.register('sw.js')
 		.then (() => { 
             console.log('Service Worker Registered'); 
         })

@@ -14,7 +14,7 @@ $(document).ready (() => {
 
     dateTime = new Date();
     //document.querySelector ('time').innerHTML = dateTime
-    $('.time').html (`${dateTime.getDate()}/${dateTime.getMonth()}/${dateTime.getFullYear()} ${(dateTime.getHours()<10?'0':'') + dateTime.getHours()}:${(dateTime.getMinutes()<10?'0':'') + dateTime.getMinutes()}`)
+    // $('.time').html (`${dateTime.getDate()}/${dateTime.getMonth()}/${dateTime.getFullYear()} ${(dateTime.getHours()<10?'0':'') + dateTime.getHours()}:${(dateTime.getMinutes()<10?'0':'') + dateTime.getMinutes()}`)
 
     $.ajax({
         url: `https://www.worldtides.info/api?extremes&lat=${latitude}&lon=${longitude}&key=611e7ad2-9684-49e0-ac23-8875a5f7f218`,
