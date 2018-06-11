@@ -8,7 +8,7 @@ $(document).ready (() => {
             console.log (`Longitude: ${longitude} Latitude: ${latitude}`);
             
             $.ajax ({
-                url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAC148-4ycwCA5I7sc7TXISife7BObCRuk`,
+                url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAbsryLwpbZaIvaqiIFP2RjioatW8VdAQo`,
                 success: (data) => {
                     console.log (data);
                     $('.location').html (data.results[3].formatted_address);
