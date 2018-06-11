@@ -1,6 +1,6 @@
 $(document).ready (() => {
-    longitude = 0;
-    latitude = 0;
+    let longitude = 0;
+    let latitude = 0;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((data) => {
             longitude = data.coords.longitude;
@@ -55,23 +55,23 @@ $(document).ready (() => {
                             if (data.extremes[0].date != NaN) {
                                 if (data.extremes[0].type == 'High') {
                                     //document.querySelector ('highTide').innerHTML = data.extremes[0].date;
-                                    highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'))
+                                    let highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'))
                                     $('.highTide').html (highTideTime.getHours() + ":" +  highTideTime.getMinutes());
                                 }
                                 else {
                                     //document.querySelector ('lowTide').innerHTML = data.extremes[0].date;
-                                    lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'))
+                                    let lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'))
                                     $('.lowTide').html (lowTideTime.getHours() +  ":" + lowTideTime.getMinutes());
                                 }
                     
                                 if (data.extremes[1].type == 'Low') {
                                     //document.querySelector ('lowTide').innerHTML = data.extremes[1].date;
-                                    lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'))
+                                    let lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'))
                                     $('.lowTide').html (lowTideTime.getHours() + ":" + lowTideTime.getMinutes());
                                 }
                                 else {
                                     //document.querySelector ('highTide').innerHTML = data.extremes[1].date;
-                                    highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'))
+                                    let highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'))
                                     $('.highTide').html (highTideTime.getHours() + ":" + highTideTime.getMinutes());
                                 }
                     
@@ -99,7 +99,7 @@ $(document).ready (() => {
         $('.lowTide').html ('--:--');
     }
 
-    dateTime = new Date();
+    let dateTime = new Date();
     //document.querySelector ('time').innerHTML = dateTime
     // $('.time').html (`${dateTime.getDate()}/${dateTime.getMonth()}/${dateTime.getFullYear()} ${(dateTime.getHours()<10?'0':'') + dateTime.getHours()}:${(dateTime.getMinutes()<10?'0':'') + dateTime.getMinutes()}`)
 
@@ -135,14 +135,14 @@ $(document).ready (() => {
 function calculateHeight (currentTime, nextLowTide, nextHighTide) {
     if (nextLowTide < currentTime) {
         console.log ("Low tide is less");
-        currentTideTime = Math.abs(currentTime - lowTideTime);
-        percentage = (currentTideTime / 22200000) * 100;
+        let currentTideTime = Math.abs(currentTime - lowTideTime);
+        let percentage = (currentTideTime / 22200000) * 100;
         //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${100 - percentage}%), cadetblue ${100 - percentage}%)`);
     }
     else if (nextLowTide > currentTime && currentTime > nextHighTide) {
         console.log ("High tides");
-        currentTideTime = Math.abs(currentTime - highTideTime);
-        percentage = (currentTideTime / 22200000) * 100;
+        let currentTideTime = Math.abs(currentTime - highTideTime);
+        let percentage = (currentTideTime / 22200000) * 100;
         console.log (percentage)
         // $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
     }
