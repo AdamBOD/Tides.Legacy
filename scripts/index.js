@@ -1,6 +1,9 @@
 $(document).ready (() => {
     let longitude = 0;
     let latitude = 0;
+    let lowTideTime;
+    let highTideTime;
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((data) => {
             longitude = data.coords.longitude;
@@ -52,26 +55,26 @@ $(document).ready (() => {
                             //     $('.highTide').html ("Error getting tide data.");
                             // }
                             //$('.highTide').html (data.extremes[0].date.toString());
-                            if (data.extremes[0].date != NaN) {
-                                if (data.extremes[0].type == 'High') {
+                            if (data.extremes[0].date !== NaN) {
+                                if (data.extremes[0].type === 'High') {
                                     //document.querySelector ('highTide').innerHTML = data.extremes[0].date;
-                                    let highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'))
+                                    highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'))
                                     $('.highTide').html (highTideTime.getHours() + ":" +  highTideTime.getMinutes());
                                 }
                                 else {
                                     //document.querySelector ('lowTide').innerHTML = data.extremes[0].date;
-                                    let lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'))
+                                    lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'))
                                     $('.lowTide').html (lowTideTime.getHours() +  ":" + lowTideTime.getMinutes());
                                 }
                     
                                 if (data.extremes[1].type == 'Low') {
                                     //document.querySelector ('lowTide').innerHTML = data.extremes[1].date;
-                                    let lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'))
+                                    lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'))
                                     $('.lowTide').html (lowTideTime.getHours() + ":" + lowTideTime.getMinutes());
                                 }
                                 else {
                                     //document.querySelector ('highTide').innerHTML = data.extremes[1].date;
-                                    let highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'))
+                                    highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'))
                                     $('.highTide').html (highTideTime.getHours() + ":" + highTideTime.getMinutes());
                                 }
                     
