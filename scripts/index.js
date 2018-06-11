@@ -88,11 +88,15 @@ $(document).ready (() => {
         }, (data) => {
             console.log ("Error: Couldn't get user location")
             $('.location').html ('Location unavailable');
+            $('.highTide').html ('--:--');
+            $('.lowTide').html ('--:--');
             return
         });
     }
     else {
         $('.location').html ('Location unavailable');
+        $('.highTide').html ('--:--');
+        $('.lowTide').html ('--:--');
     }
 
     dateTime = new Date();
