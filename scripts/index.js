@@ -1,9 +1,9 @@
-$(document).ready (() => {
-    let longitude = 0;
-    let latitude = 0;
-    let lowTideTime;
-    let highTideTime;
+var longitude = 0;
+var latitude = 0;
+var lowTideTime;
+var highTideTime;
 
+$(document).ready (() => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((data) => {
             longitude = data.coords.longitude;
@@ -73,16 +73,17 @@ $(document).ready (() => {
 })
 
 function calculateHeight (currentTime, nextLowTide, nextHighTide) {
+    var percentage;
     if (nextLowTide < currentTime) {
         console.log ("Low tide is less");
         let currentTideTime = Math.abs(currentTime - lowTideTime);
-        let percentage = (currentTideTime / 22200000) * 100;
+        percentage = (currentTideTime / 22200000) * 100;
         //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${100 - percentage}%), cadetblue ${100 - percentage}%)`);
     }
     else if (nextLowTide > currentTime && currentTime > nextHighTide) {
         console.log ("High tides");
         let currentTideTime = Math.abs(currentTime - highTideTime);
-        let percentage = (currentTideTime / 22200000) * 100;
+        percentage = (currentTideTime / 22200000) * 100;
         console.log (percentage)
         // $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
     }
