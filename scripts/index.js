@@ -68,8 +68,6 @@ $(document).ready (() => {
         $('.highTide').html ('--:--');
         $('.lowTide').html ('--:--');
     }
-
-    let dateTime = new Date();
 })
 
 function calculateHeight (currentTime, nextLowTide, nextHighTide) {
