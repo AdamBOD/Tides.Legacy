@@ -2,8 +2,14 @@ var longitude = 0;
 var latitude = 0;
 var lowTideTime;
 var highTideTime;
+var swipeIndex = 0;
+var maxSwipeIndex = 6;
 
 $(document).ready (() => {
+    init ();
+});
+
+function init () {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((data) => {
             longitude = data.coords.longitude;
@@ -25,34 +31,44 @@ $(document).ready (() => {
             $.ajax({
                 url: `https://www.worldtides.info/api?extremes&lat=${latitude}&lon=${longitude}&key=611e7ad2-9684-49e0-ac23-8875a5f7f218`,
                 success: (data) => {
-                            console.log (data)
-                            if (data.extremes[0].date !== NaN) {
-                                if (data.extremes[0].type === 'High') {
-                                    highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
-                                    $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
-                                }
-                                else {
-                                    lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
-                                    $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
-                                }
-                    
-                                if (data.extremes[1].type == 'Low') {
-                                    lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
-                                    $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
-                                }
-                                else {
-                                    highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
-                                    $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
-                                }
-                    
-                                calculateHeight (new Date (), lowTideTime, highTideTime);
-                            }
-                            else {
-                                $('.highTide').html ("Error getting tide data.");
-                            }
-                        },
+                    console.log (data)
+                    if (data.extremes[0].date !== NaN) {
+                        if (data.extremes[0].type === 'High') {
+                            highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
+                            $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
+                        }
+                        else {
+                            lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
+                            $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
+                        }
+            
+                        if (data.extremes[1].type == 'Low') {
+                            lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
+                            $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
+                        }
+                        else {
+                            highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
+                            $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
+                        }
+            
+                        calculateHeight (new Date (), lowTideTime, highTideTime);
+                    }
+                    else {
+                        $('.highTide').html ("Error getting tide data.");
+                    }
+                },
                 error: (data) => {
                     $('.highTide').html (data);
+                }
+            });
+
+            $.ajax ({
+                url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=7a7717be990224fd580855c23fa8b3b5`,
+                success: (data) => {
+                    console.log (data);
+                },
+                error: (error) => {
+                    console.log (error);
                 }
             });
         }, (data) => {
@@ -68,7 +84,27 @@ $(document).ready (() => {
         $('.highTide').html ('--:--');
         $('.lowTide').html ('--:--');
     }
-})
+
+    initSwipe ();
+}
+
+function initSwipe () {
+    var dataContainer = document.getElementById ('dataContainer');
+    var mc = new Hammer (dataContainer);
+
+    mc.on('swipeleft swiperight', (ev) => {
+        var leftAdjustment = $('.container-fluid.app-data').width();
+        console.log (`Event Type: ${ev.type} SwipeIndex: ${swipeIndex} Max Swipe: ${maxSwipeIndex}`);
+        if (ev.type === 'swipeleft' && swipeIndex >= 0 && swipeIndex < maxSwipeIndex) {
+            $('.container-fluid.app-data').animate({left: `-=${leftAdjustment}`}, 500);
+            swipeIndex ++;
+        }
+        else if (ev.type === 'swiperight' && swipeIndex > 0 && swipeIndex <= maxSwipeIndex) {
+            $('.container-fluid.app-data').animate({left: `+=${leftAdjustment}`}, 500);
+            swipeIndex --;
+        }
+    });
+}
 
 function calculateHeight (currentTime, nextLowTide, nextHighTide) {
     var percentage;

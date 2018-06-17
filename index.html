@@ -8,7 +8,9 @@
         <script type="text/javascript" src="scripts/index.js"></script>
         <script type="text/javascript" src="register-sw.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-        <meta name="viewport" content="width=device-width"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/weather/0.0.2/weather.min.js"></script>
+        <script src="assets/js/hammer.min.js"></script>
+        <meta name="viewport"  content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="description" content="Web App for predicting tide times at your current location.">
 
         <link rel="icon" type="image/x-icon" href="assets/images/icons/favicon.ico">
@@ -42,8 +44,8 @@
     </head>
     <body>
         <div class="container main">
-            <div class="data">
-                <div class="container-fluid">
+            <div class="data" id="dataContainer">
+                <div class="container-fluid app-data" id="tideInfo">
                     <div class="row">
                         <div class="container-fluid">
                             <div class="row">
@@ -54,17 +56,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <span class="heading">Current Time</span>
-                            </div>
-                            <div class="row dateTime">
-                                <span class="time">8:56 PM</span>
-                                <span class="date">07/05/2018</span>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="row">
                         <div class="container-fluid">
                             <div class="row">
@@ -85,6 +76,25 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="container-fluid app-data" id="windInfo">
+                    Hello
+                </div>
+                <div class="container-fluid app-data" id="windInfo">
+                    World
+                </div> 
+                <div class="container-fluid app-data" id="windInfo">
+                    This
+                </div>
+                <div class="container-fluid app-data" id="windInfo">
+                    Is
+                </div>
+                <div class="container-fluid app-data" id="windInfo">
+                    A
+                </div>
+                <div class="container-fluid app-data" id="windInfo">
+                    Test
+                </div> 
             </div>
         </div>
         <footer></footer>
