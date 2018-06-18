@@ -30,28 +30,20 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-title" content="Tides">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <link rel="apple-touch-icon" href="/images/icons/icon-96x96.png"/>
-
-        <!-- <link rel="apple-touch-icon" sizes="57x57" href="assets/images/icons/icon-57x57.png"> -->
-        <!-- <link rel="apple-touch-icon" sizes="60x60" href="assets/images/icons/icon-60x60.png"> -->
         <link rel="apple-touch-icon" sizes="72x72" href="assets/images/icons/icon-72x72.png">
-        <!-- <link rel="apple-touch-icon" sizes="76x76" href="assets/images/icons/icon-76x76.png"> -->
         <link rel="apple-touch-icon" sizes="96x96" href="assets/images/icons/icon-96x96.png">
         <!-- <link rel="apple-touch-icon" sizes="114x114" href="assets/images/icons/icon-114x114.png"> -->
         <link rel="apple-touch-icon" sizes="128x128" href="assets/images/icons/icon-128x128.png">
         <link rel="apple-touch-icon" sizes="144x144" href="assets/images/icons/icon-144x144.png">
         <link rel="apple-touch-icon" sizes="152x152" href="assets/images/icons/icon-152x152.png">
-        <!-- <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/icon-180x180.png"> -->
         <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icons/icon-192x192.png">
         <link rel="icon" type="image/png" sizes="384x384" href="assets/images/icons/icon-384x384.png">
         <link rel="icon" type="image/png" sizes="512x512" href="assets/images/icons/icon-512x512.png">
-        <!-- <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/icon-32x32.png"> -->
         <link rel="icon" type="image/png" sizes="96x96" href="assets/images/icons/icon-96x96.png">
-        <!-- <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/icon-16x16.png"> -->
 
     </head>
     <body>
-        <div class="weathericon windIconStorm"></div>
+        <!-- <div class="weathericon windyNightIcon"></div> -->
         <div class="container main">
             <div class="data" id="dataContainer">
                 <div class="container-fluid app-data" id="tideInfo">
@@ -79,7 +71,11 @@
                                     <div class="row tides">
                                         <span class="lowTide col-sm-4"><img class="loader" src="assets/images/rings.svg"></span>
                                         <span class="highTide col-sm-4"><img class="loader" src="assets/images/rings.svg"></span>
-                                    </div>                                    
+                                    </div>
+                                    <div class="row tideHeights">
+                                        <span class="lowTideHeight col-sm-4"></span>
+                                        <span class="highTideHeight col-sm-4"></span>
+                                    </div>                                  
                                 </div>
                             </div>
                         </div>
@@ -93,32 +89,29 @@
                                 <img class="windDirectionIcon" src="assets/images/DirectionIcon.png">
                             </div>
                             <div class="row">
-                                <span class="heading windDirection"></span>
+                                <span class="largeHeading windDirection"></span>
                             </div>
                             <div class="row">
                                 <span class="heading windSpeed"></span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid app-data" id="weatherInfo">
+                    <div class="row">
+                        <div class="container-fluid">
                             <div class="row">
-                                <span class="heading windSpeedKnots"></span>
+                                <img class="windDirectionIcon" src="assets/images/DirectionIcon.png">
+                            </div>
+                            <div class="row">
+                                <span class="largeHeading windDirection"></span>
+                            </div>
+                            <div class="row">
+                                <span class="heading windSpeed"></span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid app-data" id="windInfo">
-                    World
-                </div> 
-                <div class="container-fluid app-data" id="windInfo">
-                    This
-                </div>
-                <div class="container-fluid app-data" id="windInfo">
-                    Is
-                </div>
-                <div class="container-fluid app-data" id="windInfo">
-                    A
-                </div>
-                <div class="container-fluid app-data" id="windInfo">
-                    Test
-                </div> 
             </div>
         </div>
         <footer></footer>

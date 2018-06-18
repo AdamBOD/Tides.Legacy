@@ -4,6 +4,26 @@ var lowTideTime;
 var highTideTime;
 var windData;
 var windDirection = '';
+var weatherData;
+var weatherIcons = {
+    "01d": "sunnyIcon",
+    "02d": "partlyCloudyIcon",
+    "03d": "mostlyCloudyIcon",
+    "04d": "cloudyIcon",
+    "09d": "sunnyShowersIcon",
+    "10d": "rainyIcon",
+    "11d": "lightningIcon",
+    "13d": "snowShowersIcon",
+    "50d": "windySunnyIcon",
+    "01n": "clearNightIcon",
+    "02n": "partlyCloudyNightIcon",
+    "03n": "cloudyIcon",
+    "04n": "cloudyIcon",
+    "09n": "rainyIcon",
+    "10n": "rainyIcon",
+    "11n": "lightningIcon",
+    "13n": "snowShowersIcon"
+}
 var swipeIndex = 0;
 var maxSwipeIndex = 0;
 
@@ -32,23 +52,28 @@ function init () {
             $.ajax({
                 url: `https://www.worldtides.info/api?extremes&lat=${latitude}&lon=${longitude}&key=611e7ad2-9684-49e0-ac23-8875a5f7f218`,
                 success: (data) => {
+                    console.log (data)
                     if (data.extremes[0].date !== NaN) {
                         if (data.extremes[0].type === 'High') {
                             highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
                             $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
+                            $('.highTideHeight').html (`${data.extremes[0].height}m`);
                         }
                         else {
                             lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
                             $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
+                            $('.lowTideHeight').html (`${data.extremes[0].height}m`);
                         }
             
                         if (data.extremes[1].type == 'Low') {
                             lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
                             $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
+                            $('.lowTideHeight').html (`${data.extremes[1].height}m`);
                         }
                         else {
                             highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
                             $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
+                            $('.highTideHeight').html (`${data.extremes[1].height}m`);
                         }
             
                         calculateHeight (new Date (), lowTideTime, highTideTime);
@@ -120,8 +145,9 @@ function init () {
                         console.log (`Error: Issue converting degrees into direction ${windData.deg}`);
                     }
                     $('.windDirection').html(windDirection);
-                    $('.windSpeed').html(`${windData.speed}m/s`);
-                    $('.windSpeedKnots').html(`${Math.round (windData.speed * 1.9438444924574)} knots`);
+                    var windSpeedKnots = Math.round (windData.speed * 1.9438444924574);
+                    $('.windSpeed').html(`${windData.speed}m/s  -  ${windSpeedKnots} knots`);
+                    //$('.windSpeedKnots').html(`${Math.round (windData.speed * 1.9438444924574)} knots`);
                     
                 },
                 error: (error) => {
@@ -177,7 +203,7 @@ function calculateHeight (currentTime, nextLowTide, nextHighTide) {
         let timeDifference = nextHighTide - nextLowTide;
         percentage = (currentTideTime / timeDifference) * 100;
         console.log (percentage);
-        //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
+        $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
     }
     else if (nextLowTide > currentTime && currentTime > nextHighTide) {
         console.log ("High tide is less");
@@ -186,7 +212,7 @@ function calculateHeight (currentTime, nextLowTide, nextHighTide) {
         let timeDifference = nextLowTide - nextHighTide;
         percentage = (currentTideTime / timeDifference) * 100;
         console.log (percentage);
-        //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${100 - percentage}%, cadetblue ${100 - percentage}%)`);
+        $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${100 - percentage}%, cadetblue ${100 - percentage}%, cadetblue ${percentage}%)`);
     }
-    $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
+    //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
 }

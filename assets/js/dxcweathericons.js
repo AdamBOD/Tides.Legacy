@@ -1,4 +1,5 @@
 var socialMediaIconNames = [
+	"cloudyIcon",
 	"clearNightIcon",
 	"lightningIcon",
 	"mostlyCloudyIcon",
@@ -18,7 +19,8 @@ var socialMediaIconNames = [
 	"windIconFast",
 	"windIconGust",
 	"windIconStorm",
-	"windyIcon", 
+	"windyIcon",
+	"windyNightIcon",
 	"windySunnyIcon"
 ];
 //var socialMediaIconNames = ["chrome"];
@@ -26,6 +28,16 @@ iconNames = iconNames.concat(socialMediaIconNames);
 var easeVar = Quad;
 var linesToReset = [];
 //animate each of the icons
+
+window['cloudyIcon'] = function(index, f, thisIcon)
+{
+	var tl = new TimelineLite({onStart:animationComplete, onStartParams:[index, true], onReverseComplete:animationComplete, onReverseCompleteParams:[index, false]})
+
+
+	tls[index] = tl;
+	var tlRollover = new TimelineLite();
+	tlsRollover[index] = tlRollover;
+}
 
 window['clearNightIcon'] = function(index, f, thisIcon)
 {
@@ -382,6 +394,22 @@ window['windySunnyIcon'] = function(index, f, thisIcon)
 	 	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
 	 tlIdle.pause();
 	// 	.from(f.select("#middle").node, .3, {scale:0,transformOrigin:"50% 50%", ease:Circ.easeOut}, "-=.2")};
+
+	
+	tlsIdle[index] = tlIdle;
+}
+
+window['windyNightIcon'] = function(index, f, thisIcon)
+{
+	var tl = new TimelineLite({onStart:animationComplete, onStartParams:[index, true], onReverseComplete:animationComplete, onReverseCompleteParams:[index, false]})
+	tls[index] = tl;
+	var tlRollover = new TimelineLite();
+	tlsRollover[index] = tlRollover;
+
+	animateWind(tl, f.select("#wind"), 2, .1, .3, "line")
+
+	var tlIdle = new TimelineLite()
+	 tlIdle.pause();
 
 	
 	tlsIdle[index] = tlIdle;
