@@ -44,6 +44,23 @@ body {
     position: relative;
 }
 
+.windDirectionIcon {
+    width: 100px;
+    transition-duration: 0.8s;
+    transition-property: transform;
+    /* opacity: 0; */
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.windDirectionIcon.positionSet {
+    width: 100px;
+    opacity: 1;
+}
+
 .data .container-fluid .row {
     margin-bottom: 25px;
 }
