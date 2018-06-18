@@ -17,16 +17,14 @@ function init () {
         navigator.geolocation.getCurrentPosition((data) => {
             longitude = data.coords.longitude;
             latitude = data.coords.latitude;
-            console.log (`Longitude: ${longitude} Latitude: ${latitude}`);
             
             $.ajax ({
                 url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAbsryLwpbZaIvaqiIFP2RjioatW8VdAQo`,
                 success: (data) => {
-                    console.log (data);
                     $('.location').html (data.results[3].formatted_address);
                 },
-                error: (data) => {
-                    console.log (data);
+                error: (error) => {
+                    console.log (error);
                     $('.location').html ('Location unavailable');
                 }
             });
@@ -34,7 +32,6 @@ function init () {
             $.ajax({
                 url: `https://www.worldtides.info/api?extremes&lat=${latitude}&lon=${longitude}&key=611e7ad2-9684-49e0-ac23-8875a5f7f218`,
                 success: (data) => {
-                    console.log (data)
                     if (data.extremes[0].date !== NaN) {
                         if (data.extremes[0].type === 'High') {
                             highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
@@ -120,10 +117,12 @@ function init () {
                     }
                     else {
                         windDirection = windData.deg.toString();
+                        console.log (`Error: Issue converting degrees into direction ${windData.deg}`);
                     }
-                    console.log (windDirection)
                     $('.windDirection').html(windDirection);
                     $('.windSpeed').html(`${windData.speed}m/s`);
+                    $('.windSpeedKnots').html(`${Math.round (windData.speed * 1.9438444924574)} knots`);
+                    
                 },
                 error: (error) => {
                     console.log (error);
@@ -152,7 +151,6 @@ function initSwipe () {
 
     mc.on('swipeleft swiperight', (ev) => {
         var leftAdjustment = $('.container-fluid.app-data').width();
-        console.log (`Event Type: ${ev.type} SwipeIndex: ${swipeIndex} Max Swipe: ${maxSwipeIndex}`);
         if (ev.type === 'swipeleft' && swipeIndex >= 0 && swipeIndex < maxSwipeIndex) {
             $('.container-fluid.app-data').animate({left: `-=${leftAdjustment}`}, 500, () => {
                 if (swipeIndex === 1 && windData) {
@@ -176,15 +174,19 @@ function calculateHeight (currentTime, nextLowTide, nextHighTide) {
     if (nextLowTide < currentTime) {
         console.log ("Low tide is less");
         let currentTideTime = Math.abs(currentTime - lowTideTime);
-        percentage = (currentTideTime / 22200000) * 100;
-        //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${100 - percentage}%), cadetblue ${100 - percentage}%)`);
+        let timeDifference = nextHighTide - nextLowTide;
+        percentage = (currentTideTime / timeDifference) * 100;
+        console.log (percentage);
+        //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
     }
     else if (nextLowTide > currentTime && currentTime > nextHighTide) {
-        console.log ("High tides");
+        console.log ("High tide is less");
         let currentTideTime = Math.abs(currentTime - highTideTime);
-        percentage = (currentTideTime / 22200000) * 100;
-        console.log (percentage)
-        // $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
+        console.log (nextLowTide - nextHighTide);
+        let timeDifference = nextLowTide - nextHighTide;
+        percentage = (currentTideTime / timeDifference) * 100;
+        console.log (percentage);
+        //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${100 - percentage}%, cadetblue ${100 - percentage}%)`);
     }
     $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
 }
