@@ -5,6 +5,7 @@ var highTideTime;
 var windData;
 var windDirection = '';
 var weatherData;
+var weatherTemp;
 var weatherIcons = {
     "01d": "sunnyIcon",
     "02d": "partlyCloudyIcon",
@@ -91,6 +92,8 @@ function init () {
                 url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=7a7717be990224fd580855c23fa8b3b5&units=metric`,
                 success: (data) => {
                     console.log (data);
+                    weatherData = data.weather[0];
+                    weatherTemp = data.main.temp;
                     windData = data.wind;
                     if (windData.deg >= 348.75 && windData.deg < 11.25) {
                         windDirection = 'N';
@@ -147,8 +150,7 @@ function init () {
                     $('.windDirection').html(windDirection);
                     var windSpeedKnots = Math.round (windData.speed * 1.9438444924574);
                     $('.windSpeed').html(`${windData.speed}m/s  -  ${windSpeedKnots} knots`);
-                    //$('.windSpeedKnots').html(`${Math.round (windData.speed * 1.9438444924574)} knots`);
-                    
+                    $(`#${weatherIcons[weatherData.icon]}`).css ('display', 'block');          
                 },
                 error: (error) => {
                     console.log (error);
@@ -184,7 +186,15 @@ function initSwipe () {
                     $('.windDirectionIcon.positionSet').css('-webkit-transform',`rotate(${180 + windData.deg}deg)`); 
                     $('.windDirectionIcon.positionSet').css('-moz-transform',`rotate(${180 + windData.deg}deg)`);
                     $('.windDirectionIcon.positionSet').css('transform',`rotate(${180 + windData.deg}deg)`);
-                }  
+                }
+                else if (swipeIndex === 2 && weatherData) {
+                    // $('#weatherIcon').addClass (`weathericon ${weatherIcons[weatherData.icon]}`);
+                    // var weatherIconContainer = $('.weatherIconRow');
+                    // var content = weatherIconContainer.html();
+                    // weatherIconContainer.html (content, () => {
+                    //     console.log ('Refreshed')
+                    // });
+                }
             });
             swipeIndex ++;
         }

@@ -61,6 +61,11 @@ body {
     opacity: 1;
 }
 
+.weathericon {
+    width: 150px;
+    margin: auto;
+}
+
 .data .container-fluid .row {
     margin-bottom: 25px;
 }
