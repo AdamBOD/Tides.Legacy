@@ -15,7 +15,7 @@ var weatherIcons = {
     "10d": "rainyIcon",
     "11d": "lightningIcon",
     "13d": "snowShowersIcon",
-    "50d": "windySunnyIcon",
+    "50d": "mistySunnyIcon",
     "01n": "clearNightIcon",
     "02n": "partlyCloudyNightIcon",
     "03n": "cloudyIcon",
@@ -23,7 +23,8 @@ var weatherIcons = {
     "09n": "rainyIcon",
     "10n": "rainyIcon",
     "11n": "lightningIcon",
-    "13n": "snowShowersIcon"
+    "13n": "snowShowersIcon",
+    "50n": "mistyNightIcon"
 }
 var swipeIndex = 0;
 var maxSwipeIndex = 0;

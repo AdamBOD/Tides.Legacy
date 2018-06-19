@@ -20,8 +20,8 @@ var socialMediaIconNames = [
 	"windIconGust",
 	"windIconStorm",
 	"windyIcon",
-	"windyNightIcon",
-	"windySunnyIcon"
+	"mistyNightIcon",
+	"mistySunnyIcon"
 ];
 //var socialMediaIconNames = ["chrome"];
 iconNames = iconNames.concat(socialMediaIconNames);
@@ -376,7 +376,7 @@ window['windyIcon'] = function(index, f, thisIcon)
 	tlsRollover[index] = tlRollover;
 }
 
-window['windySunnyIcon'] = function(index, f, thisIcon)
+window['mistySunnyIcon'] = function(index, f, thisIcon)
 {
 	var tl = new TimelineLite({onStart:animationComplete, onStartParams:[index, true], onReverseComplete:animationComplete, onReverseCompleteParams:[index, false]})
 		.from(f.select("#outer").node, .3, {scale:0,transformOrigin:"50% 50%", ease:Circ.easeOut})
@@ -399,7 +399,7 @@ window['windySunnyIcon'] = function(index, f, thisIcon)
 	tlsIdle[index] = tlIdle;
 }
 
-window['windyNightIcon'] = function(index, f, thisIcon)
+window['mistyNightIcon'] = function(index, f, thisIcon)
 {
 	var tl = new TimelineLite({onStart:animationComplete, onStartParams:[index, true], onReverseComplete:animationComplete, onReverseCompleteParams:[index, false]})
 	tls[index] = tl;
