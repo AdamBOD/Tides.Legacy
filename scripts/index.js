@@ -185,6 +185,25 @@ function getLocationAlternative () {
     //         console.log (error);
     //     }
     // })
+    $.ajax({
+        url: 'https://ipinfo.io/json', 
+        success: (data) => {
+            $.ajax ({
+                url: `https://api.hackertarget.com/geoip/?q${data.ip}`,
+                success: (data) => {
+                    console.log (data);
+                },
+                error: (error) => {
+                    console.log (error);
+                }
+            });
+            console.log(data.ip);
+        },
+        error: (error) => {
+            console.log (error);
+        }
+    });
+
 }
 
 function initSwipe () {
