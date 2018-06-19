@@ -34,6 +34,7 @@ $(document).ready (() => {
 });
 
 function init () {
+    getLocationAlternative ();
     maxSwipeIndex = $('#dataContainer .container-fluid.app-data').length - 1;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((data) => {
@@ -172,6 +173,18 @@ function init () {
     }
 
     initSwipe ();
+}
+
+function getLocationAlternative () {
+    // $.ajax ({
+    //     url: 'http://ip-api.com/json',
+    //     success: (data) => {
+    //         console.log (data);
+    //     },
+    //     error: (error) => {
+    //         console.log (error);
+    //     }
+    // })
 }
 
 function initSwipe () {
