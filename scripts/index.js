@@ -2,6 +2,7 @@ var longitude = 0;
 var latitude = 0;
 var lowTideTime;
 var highTideTime;
+var atmosphericData;
 var windData;
 var windDirection = '';
 var weatherData;
@@ -34,173 +35,50 @@ $(document).ready (() => {
 });
 
 function init () {
-    getLocationAlternative ();
     maxSwipeIndex = $('#dataContainer .container-fluid.app-data').length - 1;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((data) => {
-            longitude = data.coords.longitude;
-            latitude = data.coords.latitude;
+            //longitude = data.coords.longitude;
+           // latitude = data.coords.latitude;
+           loadData (data.coords.longitude, data.coords.latitude);
             
-            $.ajax ({
-                url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAbsryLwpbZaIvaqiIFP2RjioatW8VdAQo`,
-                success: (data) => {
-                    $('.location').html (data.results[3].formatted_address);
-                },
-                error: (error) => {
-                    console.log (error);
-                    $('.location').html ('Location unavailable');
-                }
-            });
-
-            $.ajax({
-                url: `https://www.worldtides.info/api?extremes&lat=${latitude}&lon=${longitude}&key=611e7ad2-9684-49e0-ac23-8875a5f7f218`,
-                success: (data) => {
-                    console.log (data)
-                    if (data.extremes[0].date !== NaN) {
-                        if (data.extremes[0].type === 'High') {
-                            highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
-                            $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
-                            $('.highTideHeight').html (`${data.extremes[0].height}m`);
-                        }
-                        else {
-                            lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
-                            $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
-                            $('.lowTideHeight').html (`${data.extremes[0].height}m`);
-                        }
             
-                        if (data.extremes[1].type == 'Low') {
-                            lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
-                            $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
-                            $('.lowTideHeight').html (`${data.extremes[1].height}m`);
-                        }
-                        else {
-                            highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
-                            $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
-                            $('.highTideHeight').html (`${data.extremes[1].height}m`);
-                        }
-            
-                        calculateHeight (new Date (), lowTideTime, highTideTime);
-                    }
-                    else {
-                        $('.highTide').html ("Error getting tide data.");
-                    }
-                },
-                error: (data) => {
-                    $('.highTide').html (data);
-                }
-            });
-
-            $.ajax ({
-                url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=7a7717be990224fd580855c23fa8b3b5&units=metric`,
-                success: (data) => {
-                    console.log (data);
-                    weatherData = data.weather[0];
-                    weatherTemp = data.main.temp;
-                    windData = data.wind;
-                    if (windData.deg >= 348.75 && windData.deg < 11.25) {
-                        windDirection = 'N';
-                    }
-                    else if (windData.deg >= 11.25 && windData.deg < 33.75) {
-                        windDirection = 'NNE';
-                    }
-                    else if (windData.deg >= 33.75 && windData.deg < 56.25) {
-                        windDirection = 'NE';
-                    }
-                    else if (windData.deg >= 56.25 && windData.deg < 78.75) {
-                        windDirection = 'ENE';
-                    }
-                    else if (windData.deg >= 78.75 && windData.deg < 101.25) {
-                        windDirection = 'E';
-                    }
-                    else if (windData.deg >= 101.25 && windData.deg < 123.75) {
-                        windDirection = 'ESE';
-                    }
-                    else if (windData.deg >= 123.75 && windData.deg < 146.25) {
-                        windDirection = 'SE';
-                    }
-                    else if (windData.deg >= 146.25 && windData.deg < 168.75) {
-                        windDirection = 'SSE';
-                    }
-                    else if (windData.deg >= 168.75 && windData.deg < 191.25) {
-                        windDirection = 'S';
-                    }
-                    else if (windData.deg >= 191.25 && windData.deg < 213.75) {
-                        windDirection = 'SSW';
-                    }
-                    else if (windData.deg >= 213.75 && windData.deg < 236.25) {
-                        windDirection = 'SW';
-                    }
-                    else if (windData.deg >= 236.25 && windData.deg < 258.75) {
-                        windDirection = 'WSW';
-                    }
-                    else if (windData.deg >= 258.75 && windData.deg < 281.25) {
-                        windDirection = 'W';
-                    }
-                    else if (windData.deg >= 281.25 && windData.deg < 303.75) {
-                        windDirection = 'WNW';
-                    }
-                    else if (windData.deg >= 303.75 && windData.deg < 326.25) {
-                        windDirection = 'NW';
-                    }
-                    else if (windData.deg >= 326.25 && windData.deg < 348.75) {
-                        windDirection = 'NNE';
-                    }
-                    else {
-                        windDirection = windData.deg.toString();
-                        console.log (`Error: Issue converting degrees into direction ${windData.deg}`);
-                    }
-                    $('.windDirection').html(windDirection);
-                    var windSpeedKnots = Math.round (windData.speed * 1.9438444924574);
-                    $('.windSpeed').html(`${windData.speed}m/s  -  ${windSpeedKnots} knots`);
-                    $(`#${weatherIcons[weatherData.icon]}`).css ('display', 'block');          
-                },
-                error: (error) => {
-                    console.log (error);
-                }
-            });
-        }, (data) => {
-            console.log ("Error: Couldn't get user location")
-            $('.location').html ('Location unavailable');
-            $('.highTide').html ('--:--');
-            $('.lowTide').html ('--:--');
+        }, (error) => {
+            console.log (`Error: Couldn't get user location (${error}), trying alternative`);
+            getLocationAlternative ();
             return
         });
     }
     else {
-        $('.location').html ('Location unavailable');
-        $('.highTide').html ('--:--');
-        $('.lowTide').html ('--:--');
+        console.log (`Error: Location is disabled, trying alternative`);
+        getLocationAlternative ();
     }
 
     initSwipe ();
 }
 
 function getLocationAlternative () {
-    // $.ajax ({
-    //     url: 'http://ip-api.com/json',
-    //     success: (data) => {
-    //         console.log (data);
-    //     },
-    //     error: (error) => {
-    //         console.log (error);
-    //     }
-    // })
     $.ajax({
         url: 'https://ipinfo.io/json', 
         success: (data) => {
             $.ajax ({
-                url: `https://api.hackertarget.com/geoip/?q${data.ip}`,
+                url: `https://tidesapi.herokuapp.com/?ip=${data.ip}`,
                 success: (data) => {
-                    console.log (data);
+                    loadData (data.lon, data.lat);
                 },
                 error: (error) => {
-                    console.log (error);
+                    console.log (`Error getting API data: ${error}`);
+                    $('.location').html ('Location unavailable');
+                    $('.highTide').html ('--:--');
+                    $('.lowTide').html ('--:--');
                 }
             });
-            console.log(data.ip);
         },
         error: (error) => {
-            console.log (error);
+            console.log (`Error getting location`);
+            $('.location').html ('Location unavailable');
+            $('.highTide').html ('--:--');
+            $('.lowTide').html ('--:--');
         }
     });
 
@@ -234,6 +112,128 @@ function initSwipe () {
         else if (ev.type === 'swiperight' && swipeIndex > 0 && swipeIndex <= maxSwipeIndex) {
             $('.container-fluid.app-data').animate({left: `+=${leftAdjustment}`}, 500);
             swipeIndex --;
+        }
+    });
+}
+
+function loadData (longitude, latitude) {
+    $.ajax ({
+        url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAbsryLwpbZaIvaqiIFP2RjioatW8VdAQo`,
+        success: (data) => {
+            $('.location').html (data.results[3].formatted_address);
+        },
+        error: (error) => {
+            console.log (error);
+            $('.location').html ('Location unavailable');
+        }
+    });
+
+    $.ajax({
+        url: `https://www.worldtides.info/api?extremes&lat=${latitude}&lon=${longitude}&key=611e7ad2-9684-49e0-ac23-8875a5f7f218`,
+        success: (data) => {
+            console.log (data)
+            if (data.extremes[0].date !== NaN) {
+                if (data.extremes[0].type === 'High') {
+                    highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
+                    $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
+                    $('.highTideHeight').html (`${data.extremes[0].height}m`);
+                }
+                else {
+                    lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
+                    $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
+                    $('.lowTideHeight').html (`${data.extremes[0].height}m`);
+                }
+    
+                if (data.extremes[1].type == 'Low') {
+                    lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
+                    $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
+                    $('.lowTideHeight').html (`${data.extremes[1].height}m`);
+                }
+                else {
+                    highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
+                    $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
+                    $('.highTideHeight').html (`${data.extremes[1].height}m`);
+                }
+    
+                calculateHeight (new Date (), lowTideTime, highTideTime);
+            }
+            else {
+                $('.highTide').html ("Error getting tide data.");
+            }
+        },
+        error: (data) => {
+            $('.highTide').html (data);
+        }
+    });
+
+    $.ajax ({
+        url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=7a7717be990224fd580855c23fa8b3b5&units=metric`,
+        success: (data) => {
+            console.log (data);
+            atmosphericData = data.main;
+            weatherData = data.weather[0];
+            weatherTemp = data.main.temp;
+            windData = data.wind;
+            
+            if (windData.deg >= 11.25 && windData.deg < 33.75) {
+                windDirection = 'NNE';
+            }
+            else if (windData.deg >= 33.75 && windData.deg < 56.25) {
+                windDirection = 'NE';
+            }
+            else if (windData.deg >= 56.25 && windData.deg < 78.75) {
+                windDirection = 'ENE';
+            }
+            else if (windData.deg >= 78.75 && windData.deg < 101.25) {
+                windDirection = 'E';
+            }
+            else if (windData.deg >= 101.25 && windData.deg < 123.75) {
+                windDirection = 'ESE';
+            }
+            else if (windData.deg >= 123.75 && windData.deg < 146.25) {
+                windDirection = 'SE';
+            }
+            else if (windData.deg >= 146.25 && windData.deg < 168.75) {
+                windDirection = 'SSE';
+            }
+            else if (windData.deg >= 168.75 && windData.deg < 191.25) {
+                windDirection = 'S';
+            }
+            else if (windData.deg >= 191.25 && windData.deg < 213.75) {
+                windDirection = 'SSW';
+            }
+            else if (windData.deg >= 213.75 && windData.deg < 236.25) {
+                windDirection = 'SW';
+            }
+            else if (windData.deg >= 236.25 && windData.deg < 258.75) {
+                windDirection = 'WSW';
+            }
+            else if (windData.deg >= 258.75 && windData.deg < 281.25) {
+                windDirection = 'W';
+            }
+            else if (windData.deg >= 281.25 && windData.deg < 303.75) {
+                windDirection = 'WNW';
+            }
+            else if (windData.deg >= 303.75 && windData.deg < 326.25) {
+                windDirection = 'NW';
+            }
+            else if (windData.deg >= 326.25 && windData.deg < 348.75) {
+                windDirection = 'NNE';
+            }
+            else { // Wind Direction is North
+                windDirection = 'N';
+            }
+            $('.windDirection').html(windDirection);
+            var windSpeedKnots = Math.round (windData.speed * 1.9438444924574);
+            $('.windSpeed').html(`${windData.speed}m/s  -  ${windSpeedKnots} knots`);
+            $(`#${weatherIcons[weatherData.icon]}`).css ('display', 'block');
+            $('.weatherType').html (`${weatherData.main}`);
+            $('.temperature').html (`${atmosphericData.temp}\u00B0C`);
+            $('.humidity').html (`${atmosphericData.humidity}%`);
+            $('.pressure').html (`${atmosphericData.pressure}hPa`);
+        },
+        error: (error) => {
+            console.log (error);
         }
     });
 }

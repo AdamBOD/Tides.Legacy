@@ -61,9 +61,25 @@ body {
     opacity: 1;
 }
 
+#weatherInfo {
+    margin-top: 35px;
+}
+
 .weathericon {
     width: 150px;
+    height: 150px;
+    margin-top: -50px;
     margin: auto;
+}
+
+.otherWeather {
+    display: inline-flex;
+}
+
+.otherWeatherContainer {
+    width: 50%;
+    display: grid;
+    padding: 7px;
 }
 
 .data .container-fluid .row {
