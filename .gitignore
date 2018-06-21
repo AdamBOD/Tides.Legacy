@@ -2,3 +2,7 @@
 .vs/VSWorkspaceState.json
 .vs/tides/v15/.suo
 .vs/slnx.sqlite
+.firebaserc
+.vscode/settings.json
+firebase.json
+.gitignore
