@@ -96,6 +96,8 @@ body {
 
 .row .location {
     font-size: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .container-fluid .dateTime, .container-fluid .tides{
