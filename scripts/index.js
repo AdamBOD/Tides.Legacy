@@ -38,8 +38,6 @@ function init () {
     maxSwipeIndex = $('#dataContainer .container-fluid.app-data').length - 1;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((data) => {
-            //longitude = data.coords.longitude;
-           // latitude = data.coords.latitude;
            loadData (data.coords.longitude, data.coords.latitude);
             
             
@@ -134,23 +132,23 @@ function loadData (longitude, latitude) {
             console.log (data)
             if (data.extremes[0].date !== NaN) {
                 if (data.extremes[0].type === 'High') {
-                    highTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
+                    highTideTime = moment (data.extremes[0].date, "YYYY-MM-DD HH:mm:ss").toDate();
                     $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
                     $('.highTideHeight').html (`${data.extremes[0].height}m`);
                 }
                 else {
-                    lowTideTime = new Date (data.extremes[0].date.replace(/\s/, 'T'));
+                    lowTideTime = moment (data.extremes[0].date, "YYYY-MM-DD HH:mm:ss").toDate();
                     $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
                     $('.lowTideHeight').html (`${data.extremes[0].height}m`);
                 }
     
                 if (data.extremes[1].type == 'Low') {
-                    lowTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
+                    lowTideTime = moment (data.extremes[1].date, "YYYY-MM-DD HH:mm:ss").toDate();
                     $('.lowTide').html ((lowTideTime.getHours()<10?'0':'') + lowTideTime.getHours() + ":" + (lowTideTime.getMinutes()<10?'0':'') + lowTideTime.getMinutes());
                     $('.lowTideHeight').html (`${data.extremes[1].height}m`);
                 }
                 else {
-                    highTideTime = new Date (data.extremes[1].date.replace(/\s/, 'T'));
+                    highTideTime = moment (data.extremes[1].date, "YYYY-MM-DD HH:mm:ss").toDate();
                     $('.highTide').html ((highTideTime.getHours()<10?'0':'') + highTideTime.getHours() + ":" + (highTideTime.getMinutes()<10?'0':'') + highTideTime.getMinutes());
                     $('.highTideHeight').html (`${data.extremes[1].height}m`);
                 }
