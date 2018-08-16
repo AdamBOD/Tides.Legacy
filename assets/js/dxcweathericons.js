@@ -81,14 +81,14 @@ window['partlyCloudyIcon'] = function(index, f, thisIcon)
 	var tlRollover = new TimelineLite();
 	tlsRollover[index] = tlRollover;
 
-	var tlIdle = new TimelineLite()
-	 	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
-	 	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
-	 tlIdle.pause();
+	// var tlIdle = new TimelineLite()
+	//  	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
+	//  	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
+	//  tlIdle.pause();
 	// 	.from(f.select("#middle").node, .3, {scale:0,transformOrigin:"50% 50%", ease:Circ.easeOut}, "-=.2")};
 
 	
-	tlsIdle[index] = tlIdle;
+	//tlsIdle[index] = tlIdle;
 }
 
 
@@ -134,14 +134,14 @@ window['mostlyCloudyIcon'] = function(index, f, thisIcon)
 	var tlRollover = new TimelineLite();
 	tlsRollover[index] = tlRollover;
 
-	var tlIdle = new TimelineLite()
-	 	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
-	 	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
-	 tlIdle.pause();
+	// var tlIdle = new TimelineLite()
+	//  	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
+	//  	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
+	//  tlIdle.pause();
 	// 	.from(f.select("#middle").node, .3, {scale:0,transformOrigin:"50% 50%", ease:Circ.easeOut}, "-=.2")};
 
 	
-	tlsIdle[index] = tlIdle;
+	//tlsIdle[index] = tlIdle;
 }
 
 
@@ -267,14 +267,14 @@ window['sunnyIcon'] = function(index, f, thisIcon)
 	var tlRollover = new TimelineLite();
 	tlsRollover[index] = tlRollover;
 
-	var tlIdle = new TimelineLite()
-	 	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
-	 	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
-	 tlIdle.pause();
+	// var tlIdle = new TimelineLite()
+	//  	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
+	//  	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
+	//  tlIdle.pause();
 	// 	.from(f.select("#middle").node, .3, {scale:0,transformOrigin:"50% 50%", ease:Circ.easeOut}, "-=.2")};
 
 	
-	tlsIdle[index] = tlIdle;
+	//tlsIdle[index] = tlIdle;
 }
 
 
@@ -291,15 +291,15 @@ window['sunnyShowersIcon'] = function(index, f, thisIcon)
 	var tlRollover = new TimelineLite();
 	tlsRollover[index] = tlRollover;
 
-	var tlIdle = new TimelineLite()
-	 	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
-	 	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
-	 tlIdle.pause();
+	// var tlIdle = new TimelineLite()
+	//  	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
+	//  	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
+	//  tlIdle.pause();
 	// 	.from(f.select("#middle").node, .3, {scale:0,transformOrigin:"50% 50%", ease:Circ.easeOut}, "-=.2")};
 	animateRain(f.select("#rain"), -4, 15, 0, .5);
 
 	
-	tlsIdle[index] = tlIdle;
+	//tlsIdle[index] = tlIdle;
 }
 
 
@@ -330,14 +330,14 @@ window['thermometerHotIcon'] = function(index, f, thisIcon)
 	var tlRollover = new TimelineLite();
 	tlsRollover[index] = tlRollover;
 
-	var tlIdle = new TimelineLite()
-	 	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
-	 	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
-	 tlIdle.pause();
+	// var tlIdle = new TimelineLite()
+	//  	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
+	//  	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
+	//  tlIdle.pause();
 	// 	.from(f.select("#middle").node, .3, {scale:0,transformOrigin:"50% 50%", ease:Circ.easeOut}, "-=.2")};
 
 	
-	tlsIdle[index] = tlIdle;
+	//tlsIdle[index] = tlIdle;
 }
 
 
@@ -389,14 +389,14 @@ window['mistySunnyIcon'] = function(index, f, thisIcon)
 
 	animateWind(tl, f.select("#wind"), 2, .1, .3, "line")
 
-	var tlIdle = new TimelineLite()
-	 	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
-	 	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
-	 tlIdle.pause();
+	// var tlIdle = new TimelineLite()
+	//  	.to(f.select("#outerRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true})
+	//  	.to(f.select("#middleRepeat").node, 5, {scale:.8,transformOrigin:"50% 50%", ease:Circ.easeOut, repeat:-1, ease:Quad.easeInOut, yoyo:true}, "2");
+	//  tlIdle.pause();
 	// 	.from(f.select("#middle").node, .3, {scale:0,transformOrigin:"50% 50%", ease:Circ.easeOut}, "-=.2")};
 
 	
-	tlsIdle[index] = tlIdle;
+	//tlsIdle[index] = tlIdle;
 }
 
 window['mistyNightIcon'] = function(index, f, thisIcon)
