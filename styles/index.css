@@ -35,11 +35,8 @@ body {
     min-width: 350px;
     max-width: 350px;
     position: relative;
-}
-
-.data .container-fluid .app-data {
-    transition: left 500ms;
-    transition-timing-function: cubic-bezier(.27,1.16,.96,.89);
+    /* transition: left 500ms;
+    transition-timing-function: cubic-bezier(.27,1.16,1,1); */
 }
 
 #windInfo {
