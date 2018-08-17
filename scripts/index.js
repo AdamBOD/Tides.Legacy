@@ -91,27 +91,30 @@ function initSwipe () {
         if (ev.type === 'swipeleft' && swipeIndex >= 0 && swipeIndex < maxSwipeIndex) {
             $('.container-fluid.app-data').animate({left: `-=${leftAdjustment}`}, 500, () => {
                 if (swipeIndex === 1 && windData) {
-                    $('.windDirectionIcon').addClass ('positionSet');
-                    $('.windDirectionIcon.positionSet').css('-webkit-transform',`rotate(${180 + windData.deg}deg)`); 
-                    $('.windDirectionIcon.positionSet').css('-moz-transform',`rotate(${180 + windData.deg}deg)`);
-                    $('.windDirectionIcon.positionSet').css('transform',`rotate(${180 + windData.deg}deg)`);
-                }
-                else if (swipeIndex === 2 && weatherData) {
-                    // $('#weatherIcon').addClass (`weathericon ${weatherIcons[weatherData.icon]}`);
-                    // var weatherIconContainer = $('.weatherIconRow');
-                    // var content = weatherIconContainer.html();
-                    // weatherIconContainer.html (content, () => {
-                    //     console.log ('Refreshed')
-                    // });
+                    windAnimation();
                 }
             });
             swipeIndex ++;
         }
         else if (ev.type === 'swiperight' && swipeIndex > 0 && swipeIndex <= maxSwipeIndex) {
-            $('.container-fluid.app-data').animate({left: `+=${leftAdjustment}`}, 500);
+            $('.container-fluid.app-data').animate({left: `+=${leftAdjustment}`}, 500, () => {
+                if (swipeIndex === 1 && windData) {
+                    windAnimation();
+                }
+            });
             swipeIndex --;
         }
+        
+        $('.navDots').children('.active').removeClass("active");
+        $('.navDots').children().eq(swipeIndex).addClass("active");
     });
+}
+
+function windAnimation () {
+    $('.windDirectionIcon').addClass ('positionSet');
+    $('.windDirectionIcon.positionSet').css('-webkit-transform',`rotate(${180 + windData.deg}deg)`); 
+    $('.windDirectionIcon.positionSet').css('-moz-transform',`rotate(${180 + windData.deg}deg)`);
+    $('.windDirectionIcon.positionSet').css('transform',`rotate(${180 + windData.deg}deg)`);
 }
 
 function loadData (longitude, latitude) {

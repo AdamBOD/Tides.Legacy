@@ -9,7 +9,6 @@ body {
 }
 
 .container.main {
-    /* height: calc(100% - 275px); */
     height: 60%;
     display: flex;
     align-items: center;
@@ -26,18 +25,17 @@ body {
     border: 5px solid #FFFFFF;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     overflow: hidden;
+    position: relative;
 }
 
 .data .container-fluid {
     margin: auto;
     min-width: 350px;
     max-width: 350px;
-}
-
-.container-fluid {
     position: relative;
+    /* transition: left 500ms;
+    transition-timing-function: cubic-bezier(.27,1.16,1,1); */
 }
 
 #windInfo {
@@ -115,13 +113,31 @@ body {
     font-size: 18px;
 }
 
+.navDots {
+    position: absolute;
+    display: flex;
+    bottom: 15;
+    left: calc(50% - 37.5px);
+}
+
+.navDots div {
+    width: 15px;
+    height: 15px;
+    margin: 5px;
+    background-color: #F0F0F050;
+    border-radius: 7.5px;
+}
+
+.navDots div.active {
+    background-color: #F0F0F0;
+}
+
 .largeHeading {
     font-size: 25px;
 }
 
 footer {
     width: 100%;
-    /* height: 275px; */
     height: 40%;
     background-image: url('../assets/images/Sea.png');
     background-size: cover;
