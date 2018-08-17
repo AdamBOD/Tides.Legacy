@@ -26,18 +26,20 @@ body {
     border: 5px solid #FFFFFF;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     overflow: hidden;
+    position: relative;
 }
 
 .data .container-fluid {
     margin: auto;
     min-width: 350px;
     max-width: 350px;
+    position: relative;
 }
 
-.container-fluid {
-    position: relative;
+.data .container-fluid .app-data {
+    transition: left 500ms;
+    transition-timing-function: cubic-bezier(.27,1.16,.96,.89);
 }
 
 #windInfo {
@@ -113,6 +115,25 @@ body {
 
 .row .heading {
     font-size: 18px;
+}
+
+.navDots {
+    position: absolute;
+    display: flex;
+    bottom: 15;
+    left: calc(50% - 37.5px);
+}
+
+.navDots div {
+    width: 15px;
+    height: 15px;
+    margin: 5px;
+    background-color: #F0F0F050;
+    border-radius: 7.5px;
+}
+
+.navDots div.active {
+    background-color: #F0F0F0;
 }
 
 .largeHeading {
