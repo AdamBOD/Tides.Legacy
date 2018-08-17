@@ -9,7 +9,6 @@ body {
 }
 
 .container.main {
-    /* height: calc(100% - 275px); */
     height: 60%;
     display: flex;
     align-items: center;
