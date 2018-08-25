@@ -132,7 +132,6 @@ function loadData (longitude, latitude) {
     $.ajax({
         url: `https://www.worldtides.info/api?extremes&lat=${latitude}&lon=${longitude}&key=611e7ad2-9684-49e0-ac23-8875a5f7f218`,
         success: (data) => {
-            console.log (data)
             if (data.extremes[0].date !== NaN) {
                 if (data.extremes[0].type === 'High') {
                     highTideTime = moment (data.extremes[0].date, "YYYY-MM-DD HH:mm:ss").toDate();
@@ -170,7 +169,6 @@ function loadData (longitude, latitude) {
     $.ajax ({
         url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=7a7717be990224fd580855c23fa8b3b5&units=metric`,
         success: (data) => {
-            console.log (data);
             atmosphericData = data.main;
             weatherData = data.weather[0];
             weatherTemp = data.main.temp;
@@ -242,21 +240,15 @@ function loadData (longitude, latitude) {
 function calculateHeight (currentTime, nextLowTide, nextHighTide) {
     var percentage;
     if (nextLowTide < currentTime) {
-        console.log ("Low tide is less");
         let currentTideTime = Math.abs(currentTime - lowTideTime);
         let timeDifference = nextHighTide - nextLowTide;
         percentage = (currentTideTime / timeDifference) * 100;
-        console.log (percentage);
         $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
     }
     else if (nextLowTide > currentTime && currentTime > nextHighTide) {
-        console.log ("High tide is less");
         let currentTideTime = Math.abs(currentTime - highTideTime);
-        console.log (nextLowTide - nextHighTide);
         let timeDifference = nextLowTide - nextHighTide;
         percentage = (currentTideTime / timeDifference) * 100;
-        console.log (percentage);
         $('.data').css ('background', `linear-gradient(to top, #5f9ecf ${100 - percentage}%, cadetblue ${100 - percentage}%, cadetblue ${percentage}%)`);
     }
-    //$('.data').css ('background', `linear-gradient(to top, #5f9ecf ${percentage}%, cadetblue ${percentage}%, cadetblue ${100 - percentage}%)`);
 }
