@@ -237,8 +237,9 @@ function loadData (longitude, latitude) {
     //});
 
     $.ajax ({
-        url: `tidesapi.herokuapp.com/api/?lat=${latitude}&long=${longitude}`,
+        url: `https://tidesapi.herokuapp.com/api/?lat=${latitude}&long=${longitude}`,
         success: (data) => {
+            console.log (data);
             $('.location').html (data.results[3].formatted_address);
         },
         error: (error) => {
