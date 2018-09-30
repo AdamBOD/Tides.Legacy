@@ -42,9 +42,8 @@ function init () {
             
             
         }, (error) => {
-            console.log (`Error: Couldn't get user location (${error}), trying alternative`);
+            console.log (`Error: Couldn't get user location (${error.message}), trying alternative`);
             getLocationAlternative ();
-            return
         });
     }
     else {
@@ -60,9 +59,10 @@ function getLocationAlternative () {
         url: 'https://ipinfo.io/json', 
         success: (data) => {
             $.ajax ({
-                url: `https://tidesapi.herokuapp.com/?ip=${data.ip}`,
+                url: `https://tidesapi.herokuapp.com/ip-location/?ip=${data.ip}`,
                 success: (data) => {
                     loadData (data.lon, data.lat);
+                    console.log (data);
                 },
                 error: (error) => {
                     console.log (`Error getting API data: ${error}`);
@@ -118,6 +118,7 @@ function windAnimation () {
 }
 
 function loadData (longitude, latitude) {
+    console.log (longitude, latitude);
     $.ajax ({
         url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAbsryLwpbZaIvaqiIFP2RjioatW8VdAQo`,
         success: (data) => {
