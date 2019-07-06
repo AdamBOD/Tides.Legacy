@@ -237,7 +237,7 @@ function loadData (longitude, latitude) {
     //     }
     //});
 
-    $.ajax ({
+    /*$.ajax ({
         url: `https://tidesapi.herokuapp.com/api/?lat=${latitude}&long=${longitude}`,
         success: (data) => {
             locationData = data.locationData
@@ -257,6 +257,49 @@ function loadData (longitude, latitude) {
             $('.location').html ('API unavailable');
             $('.highTide').html ('--:--');
             $('.lowTide').html ('--:--');
+        }
+    });*/
+    
+    $.ajax ({
+        url: `https://tidesapi.herokuapp.com/location/?lat=${latitude}&long=${longitude}`,
+        success: (data) => {
+            locationData = data;
+            
+            renderLocation(locationData);
+        },
+        error: (error) => {
+            console.log (error);
+            $('.location').html ('API unavailable');
+        }
+    });
+
+    $.ajax ({
+        url: `https://tidesapi.herokuapp.com/tides/?lat=${latitude}&long=${longitude}`,
+        success: (data) => {
+            tideData = data;
+            
+            renderTides(tideData);
+        },
+        error: (error) => {
+            console.log (error);
+            $('.highTide').html ('--:--');
+            $('.lowTide').html ('--:--');
+        }
+    });
+    
+    $.ajax ({
+        url: `https://tidesapi.herokuapp.com/weather/?lat=${latitude}&long=${longitude}`,
+        success: (data) => {
+            windData = data.wind;
+            weatherData = data.weather;
+            weatherTemp = data.main.temp;
+            atmosphericData = data.main;
+
+            renderWind (windData);
+            renderWeather (weatherData, weatherTemp, atmosphericData);
+        },
+        error: (error) => {
+            console.log (error);
         }
     });
 }
