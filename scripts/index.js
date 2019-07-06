@@ -42,9 +42,8 @@ function init () {
             
             
         }, (error) => {
-            console.log (`Error: Couldn't get user location (${error}), trying alternative`);
+            console.log (`Error: Couldn't get user location (${error.message}), trying alternative`);
             getLocationAlternative ();
-            return
         });
     }
     else {
@@ -60,9 +59,10 @@ function getLocationAlternative () {
         url: 'https://ipinfo.io/json', 
         success: (data) => {
             $.ajax ({
-                url: `https://tidesapi.herokuapp.com/?ip=${data.ip}`,
+                url: `https://tidesapi.herokuapp.com/ip-location/?ip=${data.ip}`,
                 success: (data) => {
                     loadData (data.lon, data.lat);
+                    console.log (data);
                 },
                 error: (error) => {
                     console.log (`Error getting API data: ${error}`);
@@ -118,16 +118,17 @@ function windAnimation () {
 }
 
 function loadData (longitude, latitude) {
-    // $.ajax ({
-    //     url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAbsryLwpbZaIvaqiIFP2RjioatW8VdAQo`,
-    //     success: (data) => {
-    //         $('.location').html (data.results[3].formatted_address);
-    //     },
-    //     error: (error) => {
-    //         console.log (error);
-    //         $('.location').html ('Location unavailable');
-    //     }
-    // });
+    console.log (longitude, latitude);
+    $.ajax ({
+        url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAbsryLwpbZaIvaqiIFP2RjioatW8VdAQo`,
+        success: (data) => {
+            $('.location').html (data.results[3].formatted_address);
+        },
+        error: (error) => {
+            console.log (error);
+            $('.location').html ('Location unavailable');
+        }
+    });
 
     // $.ajax({
     //     url: `https://www.worldtides.info/api?extremes&lat=${latitude}&lon=${longitude}&key=611e7ad2-9684-49e0-ac23-8875a5f7f218`,
@@ -239,8 +240,68 @@ function loadData (longitude, latitude) {
     $.ajax ({
         url: `https://tidesapi.herokuapp.com/api/?lat=${latitude}&long=${longitude}`,
         success: (data) => {
-            console.log (data);
-            $('.location').html (data.results[3].formatted_address);
+            atmosphericData = data.weatherData.main;
+            weatherData = data.weatherData.weather;
+            weatherTemp = data.weatherData.main.temp;
+            windData = data.weatherData.wind;
+            
+            if (windData.deg >= 11.25 && windData.deg < 33.75) {
+                windDirection = 'NNE';
+            }
+            else if (windData.deg >= 33.75 && windData.deg < 56.25) {
+                windDirection = 'NE';
+            }
+            else if (windData.deg >= 56.25 && windData.deg < 78.75) {
+                windDirection = 'ENE';
+            }
+            else if (windData.deg >= 78.75 && windData.deg < 101.25) {
+                windDirection = 'E';
+            }
+            else if (windData.deg >= 101.25 && windData.deg < 123.75) {
+                windDirection = 'ESE';
+            }
+            else if (windData.deg >= 123.75 && windData.deg < 146.25) {
+                windDirection = 'SE';
+            }
+            else if (windData.deg >= 146.25 && windData.deg < 168.75) {
+                windDirection = 'SSE';
+            }
+            else if (windData.deg >= 168.75 && windData.deg < 191.25) {
+                windDirection = 'S';
+            }
+            else if (windData.deg >= 191.25 && windData.deg < 213.75) {
+                windDirection = 'SSW';
+            }
+            else if (windData.deg >= 213.75 && windData.deg < 236.25) {
+                windDirection = 'SW';
+            }
+            else if (windData.deg >= 236.25 && windData.deg < 258.75) {
+                windDirection = 'WSW';
+            }
+            else if (windData.deg >= 258.75 && windData.deg < 281.25) {
+                windDirection = 'W';
+            }
+            else if (windData.deg >= 281.25 && windData.deg < 303.75) {
+                windDirection = 'WNW';
+            }
+            else if (windData.deg >= 303.75 && windData.deg < 326.25) {
+                windDirection = 'NW';
+            }
+            else if (windData.deg >= 326.25 && windData.deg < 348.75) {
+                windDirection = 'NNE';
+            }
+            else { // Wind Direction is North
+                windDirection = 'N';
+            }
+            $('.windDirection').html(windDirection);
+            var windSpeedKnots = Math.round (windData.speed * 1.9438444924574);
+            var windSpeedMPH = Math.round (windData.speed * 2.237);
+            $('.windSpeed').html(`${windSpeedMPH}mph  -  ${windSpeedKnots} knots`);
+            $(`#${weatherIcons[weatherData.icon]}`).css ('display', 'block');
+            $('.weatherType').html (`${weatherData.main}`);
+            $('.temperature').html (`${atmosphericData.temp}\u00B0C`);
+            $('.humidity').html (`${atmosphericData.humidity}%`);
+            $('.pressure').html (`${atmosphericData.pressure}hPa`);
         },
         error: (error) => {
             console.log (error);
