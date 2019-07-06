@@ -225,7 +225,8 @@ function loadData (longitude, latitude) {
             }
             $('.windDirection').html(windDirection);
             var windSpeedKnots = Math.round (windData.speed * 1.9438444924574);
-            $('.windSpeed').html(`${windData.speed}m/s  -  ${windSpeedKnots} knots`);
+            var windSpeedMPH = Math.round (windData.speed * 2.237);
+            $('.windSpeed').html(`${windSpeedMPH}m/s  -  ${windSpeedKnots} knots`);
             $(`#${weatherIcons[weatherData.icon]}`).css ('display', 'block');
             $('.weatherType').html (`${weatherData.main}`);
             $('.temperature').html (`${atmosphericData.temp}\u00B0C`);
