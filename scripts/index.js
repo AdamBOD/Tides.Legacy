@@ -59,7 +59,7 @@ function getLocationAlternative () {
         url: 'https://ipinfo.io/json', 
         success: (data) => {
             $.ajax ({
-                url: `http://tidesapi.herokuapp.com/ip-location/?ip=${data.ip}`,
+                url: `https://tidesapi.herokuapp.com/ip-location/?ip=${data.ip}`,
                 success: (data) => {
                     loadData (data.lon, data.lat);
                 },
