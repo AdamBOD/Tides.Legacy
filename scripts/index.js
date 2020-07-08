@@ -88,7 +88,7 @@ function initSwipe () {
     mc.on('swipeleft swiperight', (ev) => {
         var leftAdjustment = $('.container-fluid.app-data').width();
         if (ev.type === 'swipeleft' && swipeIndex >= 0 && swipeIndex < maxSwipeIndex) {
-            $('.container-fluid.app-data').animate({left: `-=${leftAdjustment}`}, 500, () => {
+            $('.container-fluid.app-data').animate({left: `-=${leftAdjustment}`}, 250, () => {
                 if (swipeIndex === 1 && windData) {
                     windAnimation();
                 }
